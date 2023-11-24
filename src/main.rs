@@ -51,14 +51,14 @@ fn main() {
             if let Some(won_color) = cage.check_win() {
                 let won_player = match args.players {
                     2 => match won_color {
-                        0 | 1 | 2 => 0,
-                        3 | 4 | 5 => 1,
+                        0..=2 => 0,
+                        3..=5 => 1,
                         _ => unreachable!(),
                     },
                     3 => match won_color {
-                        0 | 1 => 0,
-                        2 | 3 => 1,
-                        4 | 5 => 2,
+                        0..=1 => 0,
+                        2..=3 => 1,
+                        4..=5 => 2,
                         _ => unreachable!(),
                     },
                     4 => match won_color {
