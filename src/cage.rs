@@ -33,9 +33,9 @@ impl Cage {
         let layer = &mut self.layers[layer];
 
         if clockwise {
-            layer.rotate_right(1);
+            layer.rotate_right(3);
         } else {
-            layer.rotate_left(1);
+            layer.rotate_left(3);
         }
 
         self.do_gravity();
