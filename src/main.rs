@@ -45,7 +45,7 @@ fn main() {
 
     let mut players: Vec<PlayerType> = stocks.into_iter().map(PlayerType::new).collect();
 
-    loop {
+    'main: loop {
         for player in &mut players {
             player.make_move(&mut cage);
             if let Some(won_color) = cage.check_win() {
@@ -72,7 +72,7 @@ fn main() {
                 };
                 println!("Player {} won with color {}!", won_player, won_color);
                 players[won_player].won(won_color);
-                break;
+                break 'main;
             }
         }
     }
