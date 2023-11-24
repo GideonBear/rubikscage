@@ -8,6 +8,9 @@ fn input() -> String {
     stdin()
         .read_line(&mut input_string)
         .expect("Failed to read line");
+    if input_string.is_empty() {
+        panic!("Zero-length input (EOF) while reading stdin");
+    }
     input_string.trim().to_string()
 }
 
