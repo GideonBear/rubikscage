@@ -1,7 +1,7 @@
 use crate::cage::Cage;
 use crate::player::Player;
 use itertools::Itertools;
-use std::io::stdin;
+use std::io::{stdin, Write};
 
 fn input() -> String {
     let mut input_string = String::new();
@@ -20,6 +20,7 @@ pub(crate) struct InputPlayer {
 impl Player for InputPlayer {
     fn new(stock: Vec<u8>) -> Self {
         print!("Enter your name: ");
+        std::io::stdout().flush().expect("Failed to flush stdout");
         let name = input();
         Self {
             name,
