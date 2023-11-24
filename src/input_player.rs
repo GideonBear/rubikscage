@@ -49,7 +49,6 @@ impl Player for InputPlayer {
                         }
                         Some(c) => column = c as usize,
                     }
-                    // TODO: use and remove from stock
                     let index = match self.stock.iter().position(|&x| x == cube) {
                         Some(i) => i,
                         None => {
