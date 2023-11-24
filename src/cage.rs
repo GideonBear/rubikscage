@@ -54,6 +54,29 @@ impl Cage {
     }
 
     pub(crate) fn check_win(&self) -> Option<u8> {
-        todo!();
+        for side in 0..4 {
+            for (a, b, c) in [
+                (0, 1, 2), (3, 4, 5), (6, 7, 8), // Horizontal
+                (0, 3, 6), (1, 4, 7), (2, 5, 8), // Vertical
+                (0, 4, 8), (2, 4, 6), // Diagonal
+            ] {
+                if let Some(a) = self.get_from_location(side, a) {
+                    if Some(a) == self.get_from_location(side, b)
+                        && Some(a) == self.get_from_location(side, c) {
+                        return Some(a);
+                    }
+                }
+            }
+        }
+        None
+    }
+
+    fn get_from_location(&self, side: u8, location: u8) -> Option<u8> {
+        match location {
+            0..=2 => self.layers[0][(location + side) as usize],
+            3..=5 => self.layers[1][(location - 3 + side) as usize],
+            6..=8 => self.layers[2][(location - 6 + side) as usize],
+            _ => unreachable!(),
+        }
     }
 }
