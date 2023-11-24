@@ -17,7 +17,7 @@ impl Cage {
         }
         assert!(cube < 6);
 
-        let c = &mut self.layers[2][column];
+        let c = &mut self.layers[0][column];
         if c.is_some() {
             return Err("Column is full");
         }
