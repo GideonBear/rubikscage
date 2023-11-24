@@ -75,8 +75,8 @@ impl Player for InputPlayer {
                         }
                     };
                     let cw = match cw {
-                        'w' => true,
-                        'c' => false,
+                        'r' => true,
+                        'l' => false,
                         _ => {
                             println!("Invalid cw");
                             continue
