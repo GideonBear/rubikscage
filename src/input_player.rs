@@ -27,6 +27,7 @@ impl Player for InputPlayer {
     }
 
     fn make_move(&self, cage: &mut Cage) {
+        // TODO: use and remove from stock
         loop {
             println!("{}, what's your move?", self.name);
             let input_string = input();
