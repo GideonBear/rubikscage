@@ -8,7 +8,7 @@ fn input() -> String {
     stdin()
         .read_line(&mut input_string)
         .expect("Failed to read line");
-    input_string
+    input_string.trim().to_string()
 }
 
 #[derive(Debug)]
@@ -32,7 +32,6 @@ impl Player for InputPlayer {
         loop {
             println!("{}, what's your move?", self.name);
             let input_string = input();
-            let input_string = input_string.trim();
             match input_string.chars().collect_vec()[..] {
                 ['d', ccube, ccolumn] => {
                     let cube: u8;
