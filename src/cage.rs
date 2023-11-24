@@ -48,9 +48,12 @@ impl Cage {
 
     fn do_gravity(&mut self) {
         for column in 0..8 {
-            for (b_layer, t_layer) in [(0, 1), (1, 2)] {
-                let t_cube = self.layers[t_layer][column].take();
-                self.layers[b_layer][column] = t_cube;
+            for (t_layer, b_layer) in [(1, 2), (0, 1), (1, 2)] {
+                let t_cube = self.layers[t_layer][column];
+                let b_cube = self.layers[b_layer][column];
+                if t_cube.is_some() && b_cube.is_none() {
+                    self.layers[b_layer][column] = self.layers[t_layer][column].take();
+                }
             }
         }
     }
