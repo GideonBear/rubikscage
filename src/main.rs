@@ -43,10 +43,10 @@ fn main() {
 
     type PlayerType = InputPlayer;
 
-    let players: Vec<PlayerType> = stocks.into_iter().map(PlayerType::new).collect();
+    let mut players: Vec<PlayerType> = stocks.into_iter().map(PlayerType::new).collect();
 
     loop {
-        for player in &players {
+        for player in &mut players {
             player.make_move(&mut cage);
             if let Some(won_color) = cage.check_win() {
                 let won_player = match args.players {
