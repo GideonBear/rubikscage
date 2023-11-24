@@ -26,8 +26,7 @@ impl Player for InputPlayer {
         }
     }
 
-    fn make_move(&self, cage: &mut Cage) {
-        // TODO: use and remove from stock
+    fn make_move(&mut self, cage: &mut Cage) {
         loop {
             println!("{}, what's your move?", self.name);
             let input_string = input();
@@ -50,7 +49,16 @@ impl Player for InputPlayer {
                         }
                         Some(c) => column = c as usize,
                     }
-                    if let Err(s) = cage.drop(cube, column) { println!("{}", s) }
+                    // TODO: use and remove from stock
+                    let index = match self.stock.position(|&x| x == cube) {
+                        Some(i) => i,
+                        None => {
+                            println!("Cube not in stock");
+                            continue
+                        }
+                    };
+                    self.stock.swap_remove(index);
+                    if let Err(s) = cage.drop(cube, column) {println!("{}", s) }
                 }
                 ['r', layer, cw] => {
                     let layer = match layer {
