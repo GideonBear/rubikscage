@@ -30,6 +30,7 @@ impl Player for InputPlayer {
 
     fn make_move(&mut self, cage: &mut Cage) {
         loop {
+            println!("{}", cage.string_representation_2d());
             println!("{}, what's your move?", self.name);
             let input_string = input();
             match input_string.chars().collect_vec()[..] {

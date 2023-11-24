@@ -79,4 +79,18 @@ impl Cage {
             _ => unreachable!(),
         }
     }
+
+    pub(crate) fn string_representation_2d(&self) -> String {
+        let mut s = String::new();
+        for layer in &self.layers {
+            for cube in layer {
+                s.push_str(&match cube {
+                    Some(c) => c.to_string(),
+                    None => " ".to_string(),
+                });
+            }
+            s.push('\n');
+        }
+        s
+    }
 }
