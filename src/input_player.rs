@@ -11,6 +11,7 @@ fn input() -> String {
     input_string
 }
 
+#[derive(Debug)]
 pub(crate) struct InputPlayer {
     name: String,
     stock: Vec<u8>,
