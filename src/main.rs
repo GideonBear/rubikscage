@@ -70,6 +70,7 @@ fn main() {
                     },
                     _ => unreachable!(),
                 };
+                println!("{}", cage.string_representation_2d());
                 println!("Player {} won with color {}!", won_player, won_color);
                 players[won_player].won(won_color);
                 break 'main;
