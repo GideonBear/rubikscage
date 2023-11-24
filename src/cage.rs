@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 pub(crate) struct Cage {
     layers: Vec<Vec<Option<u8>>>,
 }
@@ -81,16 +83,16 @@ impl Cage {
     }
 
     pub(crate) fn string_representation_2d(&self) -> String {
-        let mut s = String::new();
-        for layer in &self.layers {
-            for cube in layer {
-                s.push_str(&match cube {
-                    Some(c) => c.to_string(),
-                    None => " ".to_string(),
-                });
-            }
-            s.push('\n');
-        }
-        s
+        self.layers
+            .iter()
+            .map(|layer| {
+                layer.iter().map(|cube| {
+                    match cube {
+                        Some(c) => c.to_string(),
+                        None => " ".to_string(),
+                    }
+                }).collect::<String>()
+            })
+            .join("\n")
     }
 }
