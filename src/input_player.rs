@@ -66,9 +66,9 @@ impl Player for InputPlayer {
                 }
                 ['r', layer, cw] => {
                     let layer = match layer {
-                        'b' => 0,
+                        't' => 0,
                         'm' => 1,
-                        't' => 2,
+                        'b' => 2,
                         _ => {
                             println!("Invalid layer");
                             continue
