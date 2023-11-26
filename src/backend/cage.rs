@@ -61,9 +61,17 @@ impl Cage {
     pub(crate) fn check_win(&self) -> Option<u8> {
         for side in 0..4 {
             for (a, b, c) in [
-                (0, 1, 2), (3, 4, 5), (6, 7, 8), // Horizontal
-                (0, 3, 6), (1, 4, 7), (2, 5, 8), // Vertical
-                (0, 4, 8), (2, 4, 6), // Diagonal
+                // Horizontal
+                (0, 1, 2),
+                (3, 4, 5),
+                (6, 7, 8),
+                // Vertical
+                (0, 3, 6),
+                (1, 4, 7),
+                (2, 5, 8),
+                // Diagonal
+                (0, 4, 8),
+                (2, 4, 6),
             ] {
                 if let Some(a) = self.get_from_location(side, a) {
                     if Some(a) == self.get_from_location(side, b)
