@@ -1,5 +1,5 @@
-use rubikscage::cage::Cage;
-use rubikscage::player::Player;
+use rubikscage::Cage;
+use rubikscage::Player;
 use itertools::Itertools;
 use std::io::{stdin, Write};
 

@@ -1,5 +1,5 @@
-use crate::cage::Cage;
-use crate::player::Player;
+use crate::Cage;
+use crate::Player;
 
 pub fn run<P: Player>(num_players: u8) {
     let mut cage = Cage::new();

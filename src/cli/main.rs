@@ -1,5 +1,5 @@
 use crate::input_player::InputPlayer;
-use rubikscage::run::run;
+use rubikscage::run;
 use clap::Parser;
 use clap_num::number_range;
 
