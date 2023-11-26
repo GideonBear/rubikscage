@@ -1,6 +1,6 @@
 use itertools::Itertools;
 
-pub(crate) struct Cage {
+pub struct Cage {
     layers: Vec<Vec<Option<u8>>>,
 }
 
@@ -11,7 +11,7 @@ impl Cage {
         }
     }
 
-    pub(crate) fn drop(&mut self, cube: u8, column: usize) -> Result<(), &'static str> {
+    pub fn drop(&mut self, cube: u8, column: usize) -> Result<(), &'static str> {
         if column > 7 {
             return Err("Column is out of bounds; column should be between 0 and 7");
         }
@@ -27,7 +27,7 @@ impl Cage {
         Ok(())
     }
 
-    pub(crate) fn rotate(&mut self, layer: usize, clockwise: bool) {
+    pub fn rotate(&mut self, layer: usize, clockwise: bool) {
         assert!(layer <= 2);
 
         let layer = &mut self.layers[layer];
@@ -41,7 +41,7 @@ impl Cage {
         self.do_gravity();
     }
 
-    pub(crate) fn flip(&mut self) {
+    pub fn flip(&mut self) {
         self.layers.reverse();
         self.do_gravity();
     }
@@ -85,7 +85,7 @@ impl Cage {
         }
     }
 
-    pub(crate) fn string_representation_2d(&self) -> String {
+    pub fn string_representation_2d(&self) -> String {
         self.layers
             .iter()
             .map(|layer| {

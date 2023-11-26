@@ -1,5 +1,5 @@
-use crate::cage::Cage;
-use crate::player::Player;
+use rubikscage::cage::Cage;
+use rubikscage::player::Player;
 use itertools::Itertools;
 use std::io::{stdin, Write};
 
@@ -15,7 +15,7 @@ fn input() -> String {
 }
 
 #[derive(Debug)]
-pub(crate) struct InputPlayer {
+pub struct InputPlayer {
     name: String,
     stock: Vec<u8>,
 }

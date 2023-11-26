@@ -1,12 +1,7 @@
 use crate::cage::Cage;
-use crate::input_player::InputPlayer;
 use crate::player::Player;
 use clap::Parser;
 use clap_num::number_range;
-
-mod cage;
-mod input_player;
-mod player;
 
 fn players_parser(s: &str) -> Result<u8, String> {
     number_range(s, 1, 4)
@@ -18,7 +13,7 @@ struct Args {
     players: u8,
 }
 
-fn main() {
+pub fn run<P: Player>() {
     let args = Args::parse();
     let mut cage = Cage::new();
 
@@ -41,9 +36,7 @@ fn main() {
         _ => unreachable!(),
     };
 
-    type PlayerType = InputPlayer;
-
-    let mut players: Vec<PlayerType> = stocks.into_iter().map(PlayerType::new).collect();
+    let mut players: Vec<P> = stocks.into_iter().map(P::new).collect();
 
     'main: loop {
         for player in &mut players {
@@ -70,8 +63,6 @@ fn main() {
                     },
                     _ => unreachable!(),
                 };
-                println!("{}", cage.string_representation_2d());
-                println!("Player {} won with color {}!", won_player, won_color);
                 players[won_player].won(won_color);
                 break 'main;
             }
