@@ -1,6 +1,6 @@
+use itertools::Itertools;
 use rubikscage::Cage;
 use rubikscage::Player;
-use itertools::Itertools;
 use std::io::{stdin, Write};
 
 fn input() -> String {
@@ -25,10 +25,7 @@ impl Player for InputPlayer {
         print!("Enter your name: ");
         std::io::stdout().flush().expect("Failed to flush stdout");
         let name = input();
-        Self {
-            name,
-            stock
-        }
+        Self { name, stock }
     }
 
     fn make_move(&mut self, cage: &mut Cage) {
@@ -42,7 +39,7 @@ impl Player for InputPlayer {
                     match ccube.to_digit(10) {
                         None => {
                             println!("Invalid cube");
-                            continue
+                            continue;
                         }
                         Some(c) => cube = c as u8,
                     }
@@ -50,7 +47,7 @@ impl Player for InputPlayer {
                     match ccolumn.to_digit(10) {
                         None => {
                             println!("Invalid column");
-                            continue
+                            continue;
                         }
                         Some(c) => column = c as usize,
                     }
@@ -58,11 +55,13 @@ impl Player for InputPlayer {
                         Some(i) => i,
                         None => {
                             println!("Cube not in stock");
-                            continue
+                            continue;
                         }
                     };
                     self.stock.swap_remove(index);
-                    if let Err(s) = cage.drop(cube, column) {println!("{}", s) }
+                    if let Err(s) = cage.drop(cube, column) {
+                        println!("{}", s);
+                    }
                 }
                 ['r', layer, cw] => {
                     let layer = match layer {
@@ -71,7 +70,7 @@ impl Player for InputPlayer {
                         'b' => 2,
                         _ => {
                             println!("Invalid layer");
-                            continue
+                            continue;
                         }
                     };
                     let cw = match cw {
@@ -79,7 +78,7 @@ impl Player for InputPlayer {
                         'l' => false,
                         _ => {
                             println!("Invalid cw");
-                            continue
+                            continue;
                         }
                     };
                     cage.rotate(layer, cw);
@@ -89,10 +88,10 @@ impl Player for InputPlayer {
                 }
                 _ => {
                     println!("Invalid input");
-                    continue
+                    continue;
                 }
             }
-            break
+            break;
         }
     }
 

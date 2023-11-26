@@ -1,7 +1,7 @@
 use crate::input_player::InputPlayer;
-use rubikscage::run;
 use clap::Parser;
 use clap_num::number_range;
+use rubikscage::run;
 
 mod input_player;
 

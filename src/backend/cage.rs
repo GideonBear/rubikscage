@@ -67,7 +67,8 @@ impl Cage {
             ] {
                 if let Some(a) = self.get_from_location(side, a) {
                     if Some(a) == self.get_from_location(side, b)
-                        && Some(a) == self.get_from_location(side, c) {
+                        && Some(a) == self.get_from_location(side, c)
+                    {
                         return Some(a);
                     }
                 }
@@ -89,12 +90,13 @@ impl Cage {
         self.layers
             .iter()
             .map(|layer| {
-                layer.iter().map(|cube| {
-                    match cube {
+                layer
+                    .iter()
+                    .map(|cube| match cube {
                         Some(c) => c.to_string(),
                         None => " ".to_string(),
-                    }
-                }).collect::<String>()
+                    })
+                    .collect::<String>()
             })
             .join("\n")
     }
