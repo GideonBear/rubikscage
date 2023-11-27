@@ -1,5 +1,3 @@
-mod online_player;
-
 use rocket::{get, routes};
 
 #[get("/")]
