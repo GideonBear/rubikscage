@@ -11,3 +11,7 @@ async fn main() -> shuttle_rocket::ShuttleRocket {
 
     Ok(rocket.into())
 }
+
+// TODO: https://github.com/jbradberry/ultimate_tictactoe
+// https://github.com/search?q=ultimate%20tic%20tac%20toe&type=repositories
+// TODO: https://github.com/joews/rubik-js
