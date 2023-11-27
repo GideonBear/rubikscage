@@ -39,17 +39,23 @@ impl Player for InputPlayer {
                 ['d', ccube, ccolumn] => {
                     let cube: u8 = match ccube.to_digit(10) {
                         None => {
-                            println!("Invalid cube");
+                            println!("Cube must be a number");
                             continue;
                         }
                         Some(c) => c as u8,
                     };
                     let column: usize = match ccolumn.to_digit(10) {
                         None => {
-                            println!("Invalid column");
+                            println!("Column must be a number");
                             continue;
                         }
-                        Some(c) => c as usize,
+                        Some(c) => {
+                            if c >= 8 {
+                                println!("Column must be between 0 and 7");
+                                continue
+                            }
+                            c as usize
+                        }
                     };
                     let index = match self.stock.iter().position(|&x| x == cube) {
                         Some(i) => i,
