@@ -4,6 +4,7 @@ use crate::cage::Move;
 use crate::Player;
 
 pub fn run<P: Player>(num_players: u8) {
+    // TODO: rename cube -> color
     let mut cage = Cage::new();
 
     let mut stocks: Vec<Vec<u8>> = match num_players {
