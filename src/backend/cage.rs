@@ -31,15 +31,14 @@ impl Cage {
     }
 
     pub(crate) fn rotate(&mut self, layer: usize, clockwise: bool) {
-        // TODO: fix; not working correctly
         assert!(layer < 3, "Player violation: assert layer < 3");
 
         let layer = &mut self.layers[layer];
 
         if clockwise {
-            layer.rotate_right(3);
+            layer.rotate_right(2);
         } else {
-            layer.rotate_left(3);
+            layer.rotate_left(2);
         }
 
         self.do_gravity();
