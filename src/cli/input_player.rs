@@ -57,6 +57,10 @@ impl Player for InputPlayer {
                             c as usize
                         }
                     };
+                    if cage.column_full(column) {
+                        println!("Column is full");
+                        continue;
+                    }
                     let index = match self.stock.iter().position(|&x| x == cube) {
                         Some(i) => i,
                         None => {
@@ -65,7 +69,6 @@ impl Player for InputPlayer {
                         },
                     };
                     self.stock.swap_remove(index);
-                    // TODO: check if column is not blocked
                     return Move::Drop(cube, column)
                 }
                 ['r', layer, cw] => {

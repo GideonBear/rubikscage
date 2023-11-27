@@ -30,6 +30,10 @@ impl Cage {
         self.do_gravity();
     }
 
+    pub fn column_full(&self, column: usize) -> bool {
+        self.layers[0][column].is_some()
+    }
+
     pub(crate) fn rotate(&mut self, layer: usize, clockwise: bool) {
         assert!(layer < 3, "Player violation: assert layer < 3");
 
