@@ -11,24 +11,27 @@ impl Cage {
         }
     }
 
-    pub fn drop(&mut self, cube: u8, column: usize) -> Result<(), &'static str> {
-        if column > 7 {
-            return Err("Column is out of bounds; column should be between 0 and 7");
+    pub(crate) fn make_move(&mut self, move_: Move) {
+        match move_ {
+            Move::Drop(cube, column) => self.drop(cube, column),
+            Move::Rotate(layer, clockwise) => self.rotate(layer, clockwise),
+            Move::Flip => self.flip(),
         }
-        assert!(cube < 6);
+    }
+
+    pub(crate) fn drop(&mut self, cube: u8, column: usize) {
+        assert!(column < 8, "Player violation: assert column < 8");
+        assert!(cube < 6, "Player violation: assert cube < 6");
 
         let c = &mut self.layers[0][column];
-        if c.is_some() {
-            return Err("Column is full");
-        }
+        assert!(c.is_none(), "Player violation: Column is full");
         *c = Some(cube);
 
         self.do_gravity();
-        Ok(())
     }
 
-    pub fn rotate(&mut self, layer: usize, clockwise: bool) {
-        assert!(layer <= 2);
+    pub(crate) fn rotate(&mut self, layer: usize, clockwise: bool) {
+        assert!(layer < 3, "Player violation: assert layer < 3");
 
         let layer = &mut self.layers[layer];
 
@@ -41,7 +44,7 @@ impl Cage {
         self.do_gravity();
     }
 
-    pub fn flip(&mut self) {
+    pub(crate) fn flip(&mut self) {
         self.layers.reverse();
         self.do_gravity();
     }
@@ -108,4 +111,10 @@ impl Cage {
             })
             .join("\n")
     }
+}
+
+pub enum Move {
+    Drop(u8, usize),
+    Rotate(usize, bool),
+    Flip,
 }

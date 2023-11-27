@@ -2,6 +2,7 @@ use itertools::Itertools;
 use rubikscage::Cage;
 use rubikscage::Player;
 use std::io::{stdin, Write};
+use rubikscage::cage::Move;
 
 fn input() -> String {
     let mut input_string = String::new();
@@ -21,14 +22,15 @@ pub(crate) struct InputPlayer {
 }
 
 impl Player for InputPlayer {
-    fn new(stock: Vec<u8>) -> Self {
+    fn new(stock: &Vec<u8>) -> Self {
         print!("Enter your name: ");
         std::io::stdout().flush().expect("Failed to flush stdout");
         let name = input();
+        let stock = stock.to_owned();
         Self { name, stock }
     }
 
-    fn make_move(&mut self, cage: &mut Cage) {
+    fn get_move(&mut self, cage: &Cage) -> Move {
         loop {
             println!("{}", cage.string_representation_2d());
             println!("{}, what's your move?", self.name);
@@ -54,12 +56,11 @@ impl Player for InputPlayer {
                         None => {
                             println!("Cube not in stock");
                             continue;
-                        }
+                        },
                     };
                     self.stock.swap_remove(index);
-                    if let Err(s) = cage.drop(cube, column) {
-                        println!("{}", s);
-                    }
+                    // TODO: check if column is not blocked
+                    return Move::Drop(cube, column)
                 }
                 ['r', layer, cw] => {
                     let layer = match layer {
@@ -79,17 +80,16 @@ impl Player for InputPlayer {
                             continue;
                         }
                     };
-                    cage.rotate(layer, cw);
+                    return Move::Rotate(layer, cw);
                 }
                 ['f'] => {
-                    cage.flip();
+                    return Move::Flip;
                 }
                 _ => {
                     println!("Invalid input");
                     continue;
                 }
             }
-            break;
         }
     }
 

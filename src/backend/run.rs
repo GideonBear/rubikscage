@@ -1,10 +1,12 @@
+use std::iter::zip;
 use crate::Cage;
+use crate::cage::Move;
 use crate::Player;
 
 pub fn run<P: Player>(num_players: u8) {
     let mut cage = Cage::new();
 
-    let stocks: Vec<Vec<u8>> = match num_players {
+    let mut stocks: Vec<Vec<u8>> = match num_players {
         2 => vec![
             vec![0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2],
             vec![3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5],
@@ -23,11 +25,19 @@ pub fn run<P: Player>(num_players: u8) {
         _ => unreachable!(),
     };
 
-    let mut players: Vec<P> = stocks.into_iter().map(P::new).collect();
+    let mut players: Vec<P> = stocks.iter().map(P::new).collect();
 
     'main: loop {
-        for player in &mut players {
-            player.make_move(&mut cage);
+        for (player, stock) in zip(&mut players, &mut stocks) {
+            let move_ = player.get_move(&cage);
+            if let Move::Drop(cube, _) = move_ {
+                let index = match stock.iter().position(|&x| x == cube) {
+                    Some(i) => i,
+                    None => panic!("Player violation: Cube not in stock")
+                };
+                stock.swap_remove(index);
+            }
+            cage.make_move(move_);
             if let Some(won_color) = cage.check_win() {
                 let won_player = match num_players {
                     2 => match won_color {
