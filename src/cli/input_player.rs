@@ -15,7 +15,7 @@ fn input() -> String {
 }
 
 #[derive(Debug)]
-pub struct InputPlayer {
+pub(crate) struct InputPlayer {
     name: String,
     stock: Vec<u8>,
 }
@@ -35,22 +35,20 @@ impl Player for InputPlayer {
             let input_string = input();
             match input_string.chars().collect_vec()[..] {
                 ['d', ccube, ccolumn] => {
-                    let cube: u8;
-                    match ccube.to_digit(10) {
+                    let cube: u8 = match ccube.to_digit(10) {
                         None => {
                             println!("Invalid cube");
                             continue;
                         }
-                        Some(c) => cube = c as u8,
-                    }
-                    let column: usize;
-                    match ccolumn.to_digit(10) {
+                        Some(c) => c as u8,
+                    };
+                    let column: usize = match ccolumn.to_digit(10) {
                         None => {
                             println!("Invalid column");
                             continue;
                         }
-                        Some(c) => column = c as usize,
-                    }
+                        Some(c) => c as usize,
+                    };
                     let index = match self.stock.iter().position(|&x| x == cube) {
                         Some(i) => i,
                         None => {
